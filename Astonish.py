@@ -1,8 +1,5 @@
 import discord
 
-from copy import copy
-from inspect import getmembers, isroutine
-
 from aiohttp import ClientSession
 from discord.ext import commands
 
@@ -20,34 +17,12 @@ class Astonish(commands.AutoShardedBot):
             loop=self.loop
         )
 
-        self.set_attributes()
-
-    def set_attributes(self):
-        attributes = getmembers(
-            config, lambda a: not(
-                isroutine(
-                    a
-                )
-            )
-        )
-
-        for attribute in attributes:
-            if not(
-                attribute[0].startswith(
-                    '__'
-                ) and attribute[0].endswith(
-                    '__'
-                )
-            ):
-                setattr(
-                    self,
-                    attribute[
-                        0
-                    ],
-                    attribute[
-                        1
-                    ] 
-                )
+        self.color = config.color
+        self.cb_key = config.cb_key
+        self.token = config.token
+        self.initial_extensions = config.initial_extensions
+        self.status_emojis = config.status_emojis
+        
 
     def tick(self, status: bool):
 
