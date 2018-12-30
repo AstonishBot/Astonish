@@ -17,11 +17,13 @@ class Astonish(commands.AutoShardedBot):
             loop=self.loop
         )
 
-        self.color = config.color
-        self.cb_key = config.cb_key
-        self.token = config.token
-        self.initial_extensions = config.initial_extensions
-        self.status_emojis = config.status_emojis
+        self.config = config()
+
+        self.color = self.config.color
+        self.cb_key = self.config.cb_key
+        self.token = self.config.token
+        self.initial_extensions = self.config.initial_extensions
+        self.status_emojis = self.config.status_emojis
         
 
     def tick(self, status: bool):
