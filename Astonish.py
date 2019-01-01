@@ -24,7 +24,10 @@ class Astonish(commands.AutoShardedBot):
         self.token = self.config.token
         self.initial_extensions = self.config.initial_extensions
         self.status_emojis = self.config.status_emojis
-        
+
+        self.base_embed = discord.Embed(
+            color=self.color
+        )
 
     def tick(self, status: bool):
 
@@ -36,6 +39,20 @@ class Astonish(commands.AutoShardedBot):
         return self.status_emojis[
             "error"
         ]
+
+    async def error(self, ctx: commands.Context, exc: Exception):
+
+        try:
+            
+            embed = self.base_embed
+            embed.description = f"{self.tick(False)} an error occured. {exc}"            
+
+            await ctx.send(
+                embed=embed
+            )
+
+        except BaseException as e:
+            print(e)
     
     async def on_ready(self):
 
