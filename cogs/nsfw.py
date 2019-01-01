@@ -121,8 +121,12 @@ class NSFW:
                     text=f"Requested by: {ctx.author}",
                     icon_url=ctx.author.avatar_url)
                 await ctx.send(embed=embedneko)
-        except BaseException:
-
+        
+        except Exception as exc:
+            await self.bot.error(
+                ctx = ctx,
+                exc = exc,
+            )
 
     @nsfw()
     @commands.command(
