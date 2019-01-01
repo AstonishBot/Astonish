@@ -80,7 +80,8 @@ class NSFW:
     @commands.command(
         name="neko", 
         aliases=(
-            "catgirl"
+            "catgirl",
+            "hentai"
         )
     )
     @commands.cooldown(
@@ -131,7 +132,9 @@ class NSFW:
     @nsfw()
     @commands.command(
         aliases=(
-            "urb", "ud", "urban"
+            "urb", 
+            "ud", 
+            "urban"
         )
     )
     @commands.cooldown(
