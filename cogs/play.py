@@ -56,15 +56,18 @@ class Play:
             "amimobile"
         )
     )
-    async def _mobile(self, ctx):
+    async def _mobile(self, ctx, member: discord.Member):
         
-        if ctx.author.is_on_mobile:
+        member = member or ctx.author
+        
+        if member.is_on_mobile():
+
             return await ctx.send(
-                f":iphone: | {ctx.author.mention}, I think you are on **mobile**"
+                f":iphone: | I think **{member.name}** is on **mobile**"
             )
         
         await ctx.send(
-            f":computer: | {ctx.author.mention}, I think you are on **PC**"
+            f":computer: | I think **{member.name}** is on **PC**"
         )
 
 def setup(bot):
