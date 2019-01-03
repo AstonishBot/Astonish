@@ -53,7 +53,9 @@ class Play:
         name="mobile",
         aliases=(
             "amionmobile",
-            "amimobile"
+            "amimobile",
+            "isonmobile",
+            "ismobile"
         )
     )
     async def _mobile(self, ctx, member: discord.Member = None):
