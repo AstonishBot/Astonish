@@ -48,6 +48,24 @@ class Play:
             await ctx.send(
                 f"{ctx.author.mention}, {answer}"
             )
+            
+    @commands.command(
+        name="mobile",
+        aliases=(
+            "amionmobile",
+            "amimobile"
+        )
+    )
+    async def _mobile(self, ctx):
+        
+        if ctx.author.is_on_mobile:
+            return await ctx.send(
+                f":iphone: | {ctx.author.mention}, I think you are on **mobile**"
+            )
+        
+        await ctx.send(
+            f":computer: | {ctx.author.mention}, I think you are on **PC**"
+        )
 
 def setup(bot):
     bot.add_cog(
