@@ -63,11 +63,11 @@ class Play:
         if member.is_on_mobile():
 
             return await ctx.send(
-                f":iphone: | I think **{member.name}** is on **mobile**"
+                f"I think **{member.name}** is on :iphone:"
             )
         
         await ctx.send(
-            f":computer: | I think **{member.name}** is on **PC**"
+            f"I think **{member.name}** is on :computer:"
         )
 
 def setup(bot):
