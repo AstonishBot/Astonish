@@ -56,7 +56,7 @@ class Play:
             "amimobile"
         )
     )
-    async def _mobile(self, ctx, member: discord.Member):
+    async def _mobile(self, ctx, member: discord.Member = None):
         
         member = member or ctx.author
         
