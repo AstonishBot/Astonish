@@ -176,22 +176,32 @@ class NSFW:
                                 embed = discord.Embed(color=self.bot.color)
                                 embed.add_field(
                                     name="**:baby_bottle: Definition**",
-                                    value=definition
+                                    value=definition,
+                                    inline=True,
                                 )
                                 
                                 embed.add_field(
                                     name="**:link: Permalink**",
                                     value=f'[➤ Click Me!]({data["list"][0].get("permalink")})',
+                                    inline=True,
                                 )
 
                                 embed.add_field(
                                     name="**:notebook_with_decorative_cover: Word by**",
-                                    value=f'{data["list"][0].get("author")}**\n:pen_ballpoint: Written on **{data["list"][0].get("written_on")}',
+                                    value=f'{data["list"][0].get("author")}**\n**{data["list"][0].get("written_on")}',
+                                    inline=True,
+                                )
+
+                                embed.add_field(
+                                    name="**:pen_ballpoint: Written on**",
+                                    value=f'**{data["list"][0].get("written_on")}**',
+                                    inline=True,
                                 )
 
                                 embed.add_field(
                                     name="**:star: Rating**",
                                     value=f':thumbsup: **{data["list"][0].get("thumbs_up")}**\n:thumbsdown: **{data["list"][0].get("thumbs_down")}**',
+                                    inline=True,
                                 )
 
                                 await ctx.send(
