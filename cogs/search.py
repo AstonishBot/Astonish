@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 
 class Search:
-    """Search anything you want~"""
+    """Search what you want and where you want"""
 
     def __init__(self, bot):
         self.bot = bot
