@@ -1,8 +1,8 @@
 import discord
-import random
 
 from discord.ext import commands
 from utils.paginator import EmbedPages
+
 from urllib.parse import quote
 
 
@@ -11,7 +11,9 @@ class Search:
 
     def __init__(self, bot):
         self.bot = bot
+
         self.thumbnail = "https://i.imgur.com/rKFyFCL.png"
+        self.duckduckgo_backend = "https://api.duckduckgo.com"
 
     @commands.group(invoke_without_command=True)
     @commands.cooldown(1.0, 5.0, commands.BucketType.user)
@@ -74,7 +76,7 @@ class Search:
             
             except BaseException:
                 await ctx.send(
-                    f":warning: | **No results found**",
+                    f"{self.bot.tick(False)} | **No results found**",
                     delete_after=5,
                 )
 
@@ -90,7 +92,7 @@ class Search:
                     newdata = data["result"][0]
 
                 embed = discord.Embed(
-                    color=random.randint(0x000000, 0xFFFFFF),
+                    color=self.bot.color,
                     timestamp=ctx.message.created_at,
                     title=newdata.get("title"),
                 )
@@ -131,7 +133,7 @@ class Search:
                 await ctx.send(embed=embed)
 
             except BaseException:
-                await ctx.send(f":warning: | **No results found**")
+                await ctx.send(f"{self.bot.tick(False)} | **No results found**")
 
     @search.command()
     async def wikipedia(self, ctx, search: str, language: str = "en"):
@@ -151,12 +153,12 @@ class Search:
                     data = await resp.json()
             except BaseException:
                 await ctx.send(
-                    f":warning: | **Invalid language provided (`{language.lower()}`). Example: ru - Russian; en - English**"
+                    f"{self.bot.tick(False)} | **Invalid language provided (`{language.lower()}`). Example: ru - Russian; en - English**"
                 )
             if (data["query"]["pages"][data["query"]
                                        ["pageids"][0]].get("extract") is None):
                 await ctx.send(
-                    f":warning: | **No results found for `{search}` in `{language}` language.**"
+                    f"{self.bot.tick(False)} | **No results found for `{search}` in `{language}` language.**"
                 )
             else:
                 try:
@@ -187,11 +189,11 @@ class Search:
                         ) as post:
                             post = await post.json()
                             await ctx.send(
-                                f':white_check_mark: | **Uploaded. URL: https://hastebin.com/{post["key"]}**'
+                                f'{self.bot.tick(True)} | **Uploaded. URL: https://hastebin.com/{post["key"]}**'
                             )
                     except BaseException:
                         await ctx.send(
-                            ":warning: | **Uploading to hastebin failed**"
+                            f"{self.bot.tick(False)} | **Uploading to hastebin failed**"
                         )
 
     @search.command(
@@ -207,7 +209,7 @@ class Search:
         """Search DuckDuckGo"""
         await ctx.trigger_typing()
         res = await self.bot.session.get(
-            "https://api.duckduckgo.com",
+            self.duckduckgo_backend,
             params={
                 "q": quote(query),
                 "t": "Astonish Discord Bot",
@@ -275,7 +277,7 @@ class Search:
 
         if not final_embeds:
             return await ctx.send(
-                ":information_source: | **Sorry, no results found**", 
+                f"{self.bot.tick(False)} | **Sorry, no results found**", 
                 delete_after=5
             )
 

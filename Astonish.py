@@ -39,20 +39,6 @@ class Astonish(commands.AutoShardedBot):
         return self.status_emojis[
             "error"
         ]
-
-    async def error(self, ctx: commands.Context, exc: Exception):
-
-        try:
-            
-            embed = self.base_embed
-            embed.description = f"{self.tick(False)} an error occured. {exc}"            
-
-            await ctx.send(
-                embed=embed
-            )
-
-        except BaseException as e:
-            print(e)
     
     async def on_ready(self):
 
