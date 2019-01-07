@@ -194,6 +194,10 @@ class NSFW:
                                     value=f':thumbsup: **{data["list"][0].get("thumbs_up")}**\n:thumbsdown: **{data["list"][0].get("thumbs_down")}**',
                                 )
 
+                                await ctx.send(
+                                    embed=embed
+                                )
+
 
                         except Exception as exc:
                             await ctx.send(
