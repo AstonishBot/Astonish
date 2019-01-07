@@ -182,13 +182,13 @@ class NSFW:
                                 
                                 embed.add_field(
                                     name="**:link: Permalink**",
-                                    value=f'[➤ Click Me!]({data["list"][0].get("permalink")})',
+                                    value=f'**[➤ Click Me!]({data["list"][0].get("permalink")})**',
                                     inline=True,
                                 )
 
                                 embed.add_field(
                                     name="**:notebook_with_decorative_cover: Word by**",
-                                    value=f'{data["list"][0].get("author")}**\n**{data["list"][0].get("written_on")}',
+                                    value=f'**{data["list"][0].get("author")}**',
                                     inline=True,
                                 )
 
