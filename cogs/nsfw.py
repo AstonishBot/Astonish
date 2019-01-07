@@ -204,8 +204,12 @@ class NSFW:
                                     inline=True,
                                 )
 
+                                embed.set_thumbnail(
+                                    url=ctx.author.avatar_url,
+                                )
+
                                 await ctx.send(
-                                    embed=embed
+                                    embed=embed,
                                 )
 
 
