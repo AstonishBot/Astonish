@@ -146,7 +146,7 @@ class NSFW:
         For example, @Astonish ud cat will give you definition and more of word 'cat'
         """
         try:
-            async with self.session.get(
+            async with self.bot.session.get(
                 f"http://api.urbandictionary.com/v0/define?term={urbanword}"
             ) as resp:
                 data = await resp.json()
@@ -159,7 +159,7 @@ class NSFW:
                     )
 
                 else:
-                    async with self.session.get(
+                    async with self.bot.session.get(
                         f"http://api.urbandictionary.com/v0/define?term={urbanword}"
                     ) as resp:
                         data = await resp.json()
@@ -173,28 +173,38 @@ class NSFW:
                             if len(definition) >= 2000:
                                 raise Exception("The definition is too long.")
                             else:
-                                await NaokoPaginator(
-                                    colour=self.bot.color,
-                                    title=f'Urban Dictionary: {data["list"][0].get("word")}',
-                                    entries=[
-                                        f"**:baby_bottle: Definition**\n```fix\n{definition}```",
-                                        f'**:link: Permalink**\n**[➤ Click Me!]({data["list"][0].get("permalink")})**',
-                                        f':notebook_with_decorative_cover: Word by **{data["list"][0].get("author")}**\n:pen_ballpoint: Written on **{data["list"][0].get("written_on")}**',
-                                        f':thumbsup: **{data["list"][0].get("thumbs_up")}**\n:thumbsdown: **{data["list"][0].get("thumbs_down")}**',
-                                    ],
-                                    length=1,
-                                ).paginate(ctx)
+                                embed = discord.Embed(color=self.bot.color)
+                                embed.add_field(
+                                    name="**:baby_bottle: Definition**",
+                                    value=definition
+                                )
+                                
+                                embed.add_field(
+                                    name="**:link: Permalink**",
+                                    value=f'[➤ Click Me!]({data["list"][0].get("permalink")})',
+                                )
+
+                                embed.add_field(
+                                    name="**:notebook_with_decorative_cover: Word by**",
+                                    value=f'{data["list"][0].get("author")}**\n:pen_ballpoint: Written on **{data["list"][0].get("written_on")}',
+                                )
+
+                                embed.add_field(
+                                    name="**:star: Rating**",
+                                    value=f':thumbsup: **{data["list"][0].get("thumbs_up")}**\n:thumbsdown: **{data["list"][0].get("thumbs_down")}**',
+                                )
+
 
                         except Exception as exc:
-                            await self.bot.error(
-                                ctx = ctx,
-                                exc = exc,
+                            await ctx.send(
+                                f"{self.bot.tick(False)} | **Maybe, the definition is too long**",
+                                delete_after=5,
                             )
                             
         except Exception as exc:
-            await self.bot.error(
-                ctx = ctx,
-                exc = exc,
+            await ctx.send(
+                f"{self.bot.tick(False)} | **Error or no results found for your query**",
+                delete_after=5,
             )
 
 
