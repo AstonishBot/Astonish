@@ -516,11 +516,13 @@ class HelpPaginator(Pages):
     def get_bot_page(self, page):
         cog, description, commands = self.entries[page - 1]
 
-        thumbnail = self.bot.cogs[cog].thumbnail or "https://i.imgur.com/NIRsToq.gif"
+        if not hasattr(self.bot.cogs[cog], "thumbnail"):
+            thumbnail = "https://i.imgur.com/NIRsToq.gif"
 
         self.title = f'{cog} Commands'
         self.description = description
         self.embed.set_thumbnail(url=thumbnail)
+
         return commands
 
     async def show_page(self, page, *, first=False):
