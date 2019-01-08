@@ -517,7 +517,7 @@ class HelpPaginator(Pages):
         cog, description, commands = self.entries[page - 1]
         self.title = f'{cog} Commands'
         self.description = description
-        self.embed.set_thumbnail(cog.thumbnail)
+        self.embed.set_thumbnail(url=ctx.bot.cogs[cog].thumbnail)
         return commands
 
     async def show_page(self, page, *, first=False):
